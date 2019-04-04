@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class Genre: Codable {
     var id: Int
@@ -21,6 +22,15 @@ class Genre: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+    }
+    
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+    
+    static func create(object: NSManagedObject) -> Genre {
+        return Genre(id: (object.value(forKey: "id") as! Int), name: (object.value(forKey: "name") as! String))
     }
     
 }

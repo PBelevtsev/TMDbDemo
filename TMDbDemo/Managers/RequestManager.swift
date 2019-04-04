@@ -32,7 +32,6 @@ class RequestManager {
         
         AFNetworkReachabilityManager.shared().setReachabilityStatusChange { (status) in
             self.connected = ((status == .reachableViaWWAN) || (status == .reachableViaWiFi))
-            print("self.connected \(self.connected)")
             
             if !self.isInitialized {
                 self.isInitialized = true

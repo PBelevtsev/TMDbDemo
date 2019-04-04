@@ -54,8 +54,10 @@ class MovieDetailVM {
             }
         }
 
-        if self.movie?.videoKey == nil {
-            print("load videoKey")
+        if movie.videoKey == nil {
+            movie.videoKey = ResourcesManager.shared.storedVideoKey(movie: movie)
+        }
+        if self.movie!.videoKey == nil {
             downloadGroup.enter()
             RequestManager.shared.videos(movie: movie) { (listVideos, error) in
                 if listVideos != nil,
@@ -69,7 +71,10 @@ class MovieDetailVM {
                             return false
                         }
                     }) {
-                        self.movie?.videoKey = trailer.key
+                        if let movie = self.movie {
+                            movie.videoKey = trailer.key
+                            ResourcesManager.shared.storeMovies([movie])
+                        }
                     }
                 }
                 downloadGroup.leave()
