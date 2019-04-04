@@ -170,7 +170,9 @@ extension MovieCatalogViewController: UITableViewDataSource {
 extension MovieCatalogViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        if self.viewContainer == nil {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         showDetails(model.movies[indexPath.row])
     }
     
