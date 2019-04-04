@@ -10,25 +10,29 @@ import XCTest
 @testable import TMDbDemo
 
 class TMDbDemoTests: XCTestCase {
-
+    var movieCatalogVC : MovieCatalogViewController!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        ConfigManager.shared.testMode = true
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: MovieCatalogViewController = storyboard.instantiateViewController(withIdentifier: "MovieCatalogViewController") as! MovieCatalogViewController
+        let _ = vc.view
+        movieCatalogVC = vc
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        movieCatalogVC = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testMoviesList() {
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        movieCatalogVC.reloadData()
+        XCTAssertEqual(movieCatalogVC.model.movies.count, 15, "Check Movies list count")
+        
+        let firstCell = movieCatalogVC.tableView(movieCatalogVC.tableViewCatalog, cellForRowAt: IndexPath.init(row: 0, section: 0)) as! CatalogTableViewCell
+        XCTAssert(firstCell.labelTitle.text == "Bumblebee", "First Movie should be 'Bumblebee'")
+        
     }
 
 }

@@ -37,7 +37,6 @@ class MovieCatalogVM {
             completionHandler(true)
             self.inProgress = false
         }
-        
     }
     
     func fillMoviesList(result: ListResult) {

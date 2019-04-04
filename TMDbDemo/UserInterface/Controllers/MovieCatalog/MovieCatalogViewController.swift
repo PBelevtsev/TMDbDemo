@@ -10,7 +10,7 @@ import UIKit
 
 class MovieCatalogViewController: UIViewController {
 
-    let model = MovieCatalogVM()
+    let model = ConfigManager.shared.movieCatalogModel()
     
     @IBOutlet weak var tableViewCatalog: UITableView!
     @IBOutlet weak var constraintTableViewCatalog: NSLayoutConstraint!

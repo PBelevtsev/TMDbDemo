@@ -16,4 +16,9 @@ class ConfigManager {
     public static let apiKey = "a904799bfdda806b0d10e32010da4d84"
     public static let imageURL = "https://image.tmdb.org/t/p/w500"
     
+    var testMode: Bool = false
+    
+    func movieCatalogModel() -> MovieCatalogVM {
+        return testMode ? FakeMovieCatalogVM() : MovieCatalogVM()
+    }
 }
