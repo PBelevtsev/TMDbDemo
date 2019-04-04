@@ -10,6 +10,7 @@ import Foundation
 
 enum MovieDetailCell {
     case header
+    case genres
     case date
     case overview
 }
@@ -33,13 +34,24 @@ class MovieDetailVM {
         
         let downloadGroup = DispatchGroup()
         
-        downloadGroup.enter()
-        RequestManager.shared.detail(movie: movie) { (movie, error) in
-            if let movieForGenres = movie,
-                movieForGenres.genres != nil {
-                self.genres = movieForGenres.genres
+        if let movieGenres = ResourcesManager.shared.genresList(from: movie.genreIds),
+            movieGenres.count > 0 {
+            self.genres = movieGenres
+            cells.insert(.genres, at: 1)
+        } else {
+            downloadGroup.enter()
+            RequestManager.shared.detail(movie: movie) { (movie, error) in
+                if let movieForGenres = movie,
+                    let movieGenres = movieForGenres.genres,
+                    movieGenres.count > 0 {
+                    
+                    self.genres = movieGenres
+                    self.cells.insert(.genres, at: 1)
+                    ResourcesManager.shared.storeGenres(movieGenres)
+                    
+                }
+                downloadGroup.leave()
             }
-            downloadGroup.leave()
         }
 
         if self.movie?.videoKey == nil {
@@ -70,11 +82,25 @@ class MovieDetailVM {
         
     }
     
+    func genresList() -> String {
+        if let movieGenres = self.genres,
+            movieGenres.count > 0 {
+            let names = movieGenres.map { (genre) -> String in
+                return genre.name
+            }
+            return names.joined(separator: ", ")
+        } else {
+            return ""
+        }
+    }
+    
     func cellData(_ cell: MovieDetailCell) -> (identifier: String, data: [String : String]?) {
         
         switch cell {
         case .header:
             return (DetailHeaderTableViewCell.reuseIdentifier, nil)
+        case .genres:
+            return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Genres"), "info": genresList()])
         case .date:
             return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Date"), "info": movie!.releaseDate ?? ""])
         case .overview:
