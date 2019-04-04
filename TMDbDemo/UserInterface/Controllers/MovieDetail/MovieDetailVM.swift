@@ -99,6 +99,22 @@ class MovieDetailVM {
         }
     }
     
+    func releaseDate() -> String {
+        
+        if let releaseDate = movie?.releaseDate {
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd"
+            if let date = df.date(from: releaseDate) {
+                df.dateFormat = nil
+                df.dateStyle = .medium
+                df.timeStyle = .none
+                return df.string(from: date)
+            }
+        }
+        
+        return movie?.releaseDate ?? ""
+    }
+    
     func cellData(_ cell: MovieDetailCell) -> (identifier: String, data: [String : String]?) {
         
         switch cell {
@@ -107,7 +123,7 @@ class MovieDetailVM {
         case .genres:
             return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Genres"), "info": genresList()])
         case .date:
-            return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Date"), "info": movie!.releaseDate ?? ""])
+            return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Date"), "info": releaseDate()])
         case .overview:
             return (DetailInfoTableViewCell.reuseIdentifier, ["title": LS("Overview"), "info": movie!.overview ?? ""])
         }

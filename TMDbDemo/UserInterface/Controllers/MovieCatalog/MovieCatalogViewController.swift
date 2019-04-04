@@ -16,6 +16,9 @@ class MovieCatalogViewController: UIViewController {
     @IBOutlet weak var constraintTableViewCatalog: NSLayoutConstraint!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var viewContainer: UIView!
+    var currentController : MovieDetailViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -69,9 +72,20 @@ class MovieCatalogViewController: UIViewController {
     
     func showDetails(_ movie: Movie) {
         
-        let movieDetailViewController = MovieDetailViewController(nibName: MovieDetailViewController.reuseIdentifier, bundle: nil)
-        movieDetailViewController.movie = movie
-        self.navigationController?.pushViewController(movieDetailViewController, animated: true)
+        if self.viewContainer == nil {
+            let movieDetailViewController = MovieDetailViewController(nibName: MovieDetailViewController.reuseIdentifier, bundle: nil)
+            movieDetailViewController.movie = movie
+            self.navigationController?.pushViewController(movieDetailViewController, animated: true)
+        } else {
+        
+            if currentController == nil {
+                let movieDetailViewController = MovieDetailViewController(nibName: MovieDetailViewController.reuseIdentifier, bundle: nil)
+                self.add(asChildViewController: movieDetailViewController)
+            }
+            self.currentController?.movie = movie
+            
+        }
+        
     }
     
     // MARK: - Keyboard
@@ -97,6 +111,44 @@ class MovieCatalogViewController: UIViewController {
         constraintTableViewCatalog.constant = height
         self.view.layoutIfNeeded()
     }
+    
+    // MARK: - Content Container
+    
+    private func add(asChildViewController viewController: MovieDetailViewController) {
+        
+        if (self.currentController != nil) {
+            self.remove(asChildViewController: self.currentController!)
+        }
+        
+        // Add Child View Controller
+        addChild(viewController)
+        
+        // Add Child View as Subview
+        viewContainer.addSubview(viewController.view)
+        
+        // Configure Child View
+        viewController.view.frame = viewContainer.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        // Notify Child View Controller
+        viewController.didMove(toParent: self)
+        
+        self.currentController = viewController
+        
+    }
+    
+    private func remove(asChildViewController viewController: MovieDetailViewController) {
+        // Notify Child View Controller
+        viewController.willMove(toParent: nil)
+        
+        // Remove Child View From Superview
+        viewController.view.removeFromSuperview()
+        
+        // Notify Child View Controller
+        viewController.removeFromParent()
+    }
+    
+    // MARK: -
     
 }
 

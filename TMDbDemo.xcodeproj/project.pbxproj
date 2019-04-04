@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D27C07D0FB0DE985EE005AB /* Pods_TMDbDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF59534D838A4155285F7461 /* Pods_TMDbDemo.framework */; };
+		3B4D029722568315004AAF59 /* MainPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D029522568315004AAF59 /* MainPad.storyboard */; };
 		3BA5581B2253F8E500878D4F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5581A2253F8E500878D4F /* Movie.swift */; };
 		3BAEE1DA2254FE270041CFC9 /* CatalogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAEE1D82254FE270041CFC9 /* CatalogTableViewCell.swift */; };
 		3BAEE1DB2254FE270041CFC9 /* CatalogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAEE1D92254FE270041CFC9 /* CatalogTableViewCell.xib */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B4D029622568315004AAF59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainPad.storyboard; sourceTree = "<group>"; };
 		3BA5581A2253F8E500878D4F /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		3BAEE1D82254FE270041CFC9 /* CatalogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTableViewCell.swift; sourceTree = "<group>"; };
 		3BAEE1D92254FE270041CFC9 /* CatalogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogTableViewCell.xib; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				3BAF11232253E44700DB3349 /* Main.storyboard */,
+				3B4D029522568315004AAF59 /* MainPad.storyboard */,
 				3BAF112B2253E44900DB3349 /* LaunchScreen.storyboard */,
 				3BAF11292253E44900DB3349 /* Assets.xcassets */,
 				3BAEE1DF225506D30041CFC9 /* Localizable.strings */,
@@ -423,6 +426,7 @@
 				3BAEE1ED225509C60041CFC9 /* DetailHeaderTableViewCell.xib in Resources */,
 				3BAF112D2253E44900DB3349 /* LaunchScreen.storyboard in Resources */,
 				3BAF112A2253E44900DB3349 /* Assets.xcassets in Resources */,
+				3B4D029722568315004AAF59 /* MainPad.storyboard in Resources */,
 				3BAF11252253E44700DB3349 /* Main.storyboard in Resources */,
 				3BAEE1FC22554EF90041CFC9 /* MoviePlayerViewController.xib in Resources */,
 				3BAEE202225554180041CFC9 /* DetailInfoTableViewCell.xib in Resources */,
@@ -560,6 +564,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3B4D029522568315004AAF59 /* MainPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B4D029622568315004AAF59 /* Base */,
+			);
+			name = MainPad.storyboard;
+			sourceTree = "<group>";
+		};
 		3BAEE1DF225506D30041CFC9 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -710,7 +722,8 @@
 			baseConfigurationReference = B01D5415DAEBEE85ED1DB268 /* Pods-TMDbDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = SU99T79PF2;
 				INFOPLIST_FILE = "$(SRCROOT)/TMDbDemo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -718,6 +731,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = non.company.TMDbDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Wildcard_Belevtsev;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -728,7 +742,8 @@
 			baseConfigurationReference = 5A73FB1CDACB859C68D4B628 /* Pods-TMDbDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/TMDbDemo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -736,6 +751,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = non.company.TMDbDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
